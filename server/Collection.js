@@ -32,10 +32,24 @@ async function readData(collectionName, query = {}) {
   const db = client.db(dbName);
   const collection = db.collection(collectionName);
 
-  let data = await collection.find(query).toArray();
+  let response = await collection.find(query).toArray();
 
   client.close();
-  return data;
+  return response;
 }
 
-module.exports = { insertData, readData };
+async function updateData(collectionName, query, data) {
+  await client.connect();
+  console.log(
+    "Connected successfully to server with collection " + collectionName
+  );
+  const db = client.db(dbName);
+  const collection = db.collection(collectionName);
+
+  let respone = await collection.updateOne(query, { $set: data });
+
+  client.close();
+  return respone;
+}
+
+module.exports = { insertData, readData, updateData };
