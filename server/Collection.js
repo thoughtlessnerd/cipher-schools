@@ -24,7 +24,7 @@ async function insertData(data, collectionName) {
   return response;
 }
 
-async function readData(collectionName, query = {}) {
+async function readData(collectionName, query = {}, filter = {}) {
   await client.connect();
   console.log(
     "Connected successfully to server with collection " + collectionName
@@ -32,7 +32,7 @@ async function readData(collectionName, query = {}) {
   const db = client.db(dbName);
   const collection = db.collection(collectionName);
 
-  let response = await collection.find(query).toArray();
+  let response = await collection.find(query).project(filter).toArray();
 
   client.close();
   return response;
