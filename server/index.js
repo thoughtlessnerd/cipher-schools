@@ -7,6 +7,7 @@ const updateUser = require("./routes/updateUser.route");
 const updateInterests = require("./routes/updateInterests.route");
 const changePassword = require("./routes/changePassword.route");
 const followers = require("./routes/followers.route");
+const getProfile = require("./routes/getProfile.route");
 
 let port = 8080;
 app.use(cors());
@@ -26,6 +27,8 @@ app.use("/updateInterests", updateInterests);
 app.use("/changePassword", changePassword);
 
 app.use("/followers", followers);
+
+app.use("/getProfile", getProfile);
 
 app.listen(port, () => {
   console.log("We are live on " + port);
