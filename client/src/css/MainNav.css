@@ -1,0 +1,41 @@
+.mainNav {
+  position: relative;
+  width: 100%;
+  background-color: var(--white);
+  padding: 0.6rem 1.5rem;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+.mainNav-logo {
+  width: 35px;
+  height: 35px;
+  margin-right: 10px;
+}
+
+.mainNav-logoLabel {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.mainNav-explore-logo {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.mainNav-actions {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.mainNav-actions-points {
+  display: flex;
+  align-items: center;
+}
+
+.mainNav-actions-points-label {
+  color: var(--primary);
+  font-size: 1.2rem;
+  font-weight: 700;
+}

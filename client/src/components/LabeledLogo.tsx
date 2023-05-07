@@ -22,11 +22,7 @@ function LabeledLogo(props: LabeledLogoProps): React.ReactElement {
       }}
     >
       {props.logo}
-      {(props.label as string).length > 0 ? (
-        <span className={props.labelClass}>{props.label}</span>
-      ) : (
-        <span>{props.label}</span>
-      )}
+      <span className={props.labelClass}>{props.label}</span>
     </div>
   );
 }
