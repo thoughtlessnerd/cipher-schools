@@ -4,3 +4,10 @@ main {
   height: 100vh;
   flex-direction: column;
 }
+
+.mainContent {
+  display: flex;
+  height: 200vh;
+  width: 100%;
+  position: relative;
+}

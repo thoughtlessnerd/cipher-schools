@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./css/MainNav.css";
-import "./css/SideNav.css";
 import "./App.css";
+import "./css/MainContent.css";
 import Nav from "./components/Nav";
 import Colors from "./constants/Colors";
 import Icon from "./components/Icon";
@@ -9,12 +9,15 @@ import LabeledLogo from "./components/LabeledLogo";
 import SearchBar from "./components/SearchBar";
 import Tooltip from "./components/Tooltip";
 import SideNav from "./ui/SideNav";
+import ProfileHeader from "./ui/ProfileHeader";
 
 function App() {
   const [user, setUser] = useState<any>({
-    firstName: "Abhay",
-    lastName: "Chauhan",
+    firstName: "John",
+    lastName: "Doe",
+    email: "johndoe@example.com",
     points: 0,
+    followers: [],
   });
   const [leftNavOpen, setLeftNavOpen] = useState<boolean>(false);
   // let [data, setData] = useState<string | null>(null);
@@ -25,10 +28,19 @@ function App() {
       .then((res) => res.json())
       .then((json) => {
         // setData();
-        console.log(json[0].userID);
+        getUserDetails(json[0].userID);
         // console.log(json);
       });
-  });
+  }, []);
+
+  const getUserDetails = (userID: number) => {
+    fetch(`http://localhost:8080/getProfile?userID=${userID}`)
+      .then((res) => res.json())
+      .then((json) => {
+        setUser(json[0]);
+        console.log(json);
+      });
+  };
 
   return (
     <main>
@@ -157,7 +169,12 @@ function App() {
         }
         direction="row"
       />
-      <SideNav open={leftNavOpen} />
+      <div className="mainContent">
+        <SideNav open={leftNavOpen} />
+        <div className="mainContent-content">
+          <ProfileHeader user={user} />
+        </div>
+      </div>
     </main>
   );
 }
