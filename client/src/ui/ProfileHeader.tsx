@@ -16,6 +16,8 @@ const ProfileHeader = (props: ProfileHeaderProps) => {
         src="./assets/images/profileCover.png"
         alt="profile cover"
       />
+      <div className="profileHeader-background-overlay"></div>
+      <div className="profileHeader-background-underlay"></div>
       <LabeledLogo
         className="profileHeader-logo"
         direction="row"

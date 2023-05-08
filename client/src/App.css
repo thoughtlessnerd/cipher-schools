@@ -7,7 +7,7 @@ main {
 
 .mainContent {
   display: flex;
-  height: 200vh;
+  flex-direction: row;
   width: 100%;
   position: relative;
 }
