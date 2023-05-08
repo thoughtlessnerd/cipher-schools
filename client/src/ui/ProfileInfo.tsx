@@ -30,6 +30,9 @@ const ProfileInfo = (props: ProfileInfoProps) => {
   const [professionDropdownSelected, setProfessionDropdownSelected] =
     React.useState<number>(0);
 
+  const [editPass, setEditPass] = React.useState<boolean>(false);
+  const [changePass, setChangePass] = React.useState<boolean>(false);
+
   useEffect(() => setAboutValue(props.user.about), [props.user.about]);
   useEffect(() => {
     setLinks(props.user.links || {});
@@ -427,6 +430,109 @@ const ProfileInfo = (props: ProfileInfoProps) => {
             />
           </LabeledElement>
         </div>
+      </section>
+      <span className="profileInfo-section-split"></span>
+      <section className="profileInfo-section">
+        <div
+          className="row"
+          style={{
+            justifyContent: "space-between",
+          }}
+        >
+          <h1 className="profileInfo-section-label">Password & Security</h1>
+          <button
+            className="profileInfo-section-edit"
+            onClick={() => {
+              if (!editPass) {
+                setChangePass(true);
+                setEditPass(true);
+              } else {
+                setEditPass(false);
+              }
+            }}
+          >
+            {editPass ? "Save" : "Change password"}
+          </button>
+        </div>
+        <div className="profileInfo-section-password">
+          <LabeledElement
+            className="profileInfo-section-links-element"
+            label="Password"
+            labelClass="profileInfo-section-links-label"
+          >
+            <textarea
+              className="profileInfo-section-aboutme"
+              style={{
+                width: "100%",
+                height: "min-content",
+                maxLines: 1,
+                resize: "none",
+              }}
+              readOnly={true}
+              value="**********"
+            />
+          </LabeledElement>
+        </div>
+        {changePass ? (
+          <>
+            <div className="profileInfo-section-password-modal">
+              <LabeledElement
+                className="profileInfo-section-modal-element"
+                label="Old Password"
+                labelClass="profileInfo-section-modal-label"
+              >
+                <input
+                  className="profileInfo-section-modal-input"
+                  placeholder="Old Password"
+                  type="password"
+                />
+              </LabeledElement>
+              <LabeledElement
+                className="profileInfo-section-modal-element"
+                label="New Password"
+                labelClass="profileInfo-section-modal-label"
+              >
+                <input
+                  className="profileInfo-section-modal-input"
+                  placeholder="New Password"
+                  type="password"
+                />
+              </LabeledElement>
+              <LabeledElement
+                className="profileInfo-section-modal-element"
+                label="Confirm Password"
+                labelClass="profileInfo-section-modal-label"
+              >
+                <input
+                  className="profileInfo-section-modal-input"
+                  placeholder="Confirm Password"
+                  type="password"
+                />
+              </LabeledElement>
+              <div className="row">
+                <button
+                  className="profileInfo-section-modal-cancel"
+                  onClick={() => {
+                    setChangePass(false);
+                    setEditPass(false);
+                  }}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="profileInfo-section-modal-save"
+                  onClick={() => {
+                    setChangePass(false);
+                    setEditPass(false);
+                  }}
+                >
+                  Save
+                </button>
+              </div>
+            </div>
+            <div className="overlay"></div>
+          </>
+        ) : null}
       </section>
     </div>
   );
