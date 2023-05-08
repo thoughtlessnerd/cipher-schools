@@ -1,5 +1,6 @@
 .mainNav {
-  position: relative;
+  position: sticky;
+  z-index: 2;
   width: 100%;
   background-color: var(--white);
   padding: 0.6rem 1.5rem;
@@ -10,6 +11,10 @@
   width: 35px;
   height: 35px;
   margin-right: 10px;
+}
+
+.mainNav-menu-logo {
+  cursor: pointer;
 }
 
 .mainNav-logoLabel {

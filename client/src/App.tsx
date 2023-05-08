@@ -8,6 +8,7 @@ import Icon from "./components/Icon";
 import LabeledLogo from "./components/LabeledLogo";
 import SearchBar from "./components/SearchBar";
 import Tooltip from "./components/Tooltip";
+import SideNav from "./ui/SideNav";
 
 function App() {
   const [user, setUser] = useState<any>({
@@ -15,18 +16,19 @@ function App() {
     lastName: "Chauhan",
     points: 0,
   });
+  const [leftNavOpen, setLeftNavOpen] = useState<boolean>(false);
   // let [data, setData] = useState<string | null>(null);
-  // useEffect(() => {
-  //   fetch(
-  //     "http://localhost:8080/signin?email=abhay.csgo001@gmail.com&password=9231"
-  //   )
-  //     .then((res) => res.json())
-  //     .then((json) => {
-  //       setData(json[0].userID);
-  //       console.log(json[0].userID);
-  //       console.log(data);
-  //     });
-  // });
+  useEffect(() => {
+    fetch(
+      "http://localhost:8080/signin?email=abhay.csgo001@gmail.com&password=9231"
+    )
+      .then((res) => res.json())
+      .then((json) => {
+        // setData();
+        console.log(json[0].userID);
+        // console.log(json);
+      });
+  });
 
   return (
     <main>
@@ -43,6 +45,10 @@ function App() {
             }}
           >
             <Icon
+              onClick={() => {
+                setLeftNavOpen(!leftNavOpen);
+                console.log("toggle");
+              }}
               style={{ width: 21, height: 15 }}
               fill={Colors.black}
               icon="menu"
@@ -151,166 +157,7 @@ function App() {
         }
         direction="row"
       />
-      <Nav
-        className="sideNav"
-        start={
-          <div className="sideNav-actions">
-            <LabeledLogo
-              className="sideNav-actions-action"
-              direction="column"
-              logo={
-                <Icon
-                  icon="home"
-                  style={{ width: 28, height: 28 }}
-                  viewBox="-4 -4 36 36"
-                />
-              }
-              label="Home"
-              labelClass="sideNav-actions-action-label"
-            />
-            <LabeledLogo
-              className="sideNav-actions-action"
-              direction="column"
-              logo={
-                <Icon
-                  icon="books"
-                  style={{ width: 28, height: 28 }}
-                  viewBox="-4 -4 36 36"
-                />
-              }
-              label="Courses"
-              labelClass="sideNav-actions-action-label"
-            />
-            <LabeledLogo
-              className="sideNav-actions-action"
-              direction="column"
-              logo={
-                <Icon
-                  icon="exploreFilled"
-                  style={{ width: 28, height: 28 }}
-                  viewBox="-4 -4 36 36"
-                />
-              }
-              label="Trending"
-              labelClass="sideNav-actions-action-label"
-            />
-            <LabeledLogo
-              className="sideNav-actions-action"
-              direction="column"
-              logo={
-                <Icon
-                  icon="following"
-                  style={{ width: 28, height: 28 }}
-                  viewBox="-4 -4 36 36"
-                />
-              }
-              label="Following"
-              labelClass="sideNav-actions-action-label"
-            />
-            <LabeledLogo
-              className="sideNav-actions-action"
-              direction="column"
-              logo={
-                <Icon
-                  icon="dashboard"
-                  style={{ width: 28, height: 28 }}
-                  viewBox="-4 -4 36 36"
-                />
-              }
-              label="Dashboard"
-              labelClass="sideNav-actions-action-label"
-            />
-            <LabeledLogo
-              className="sideNav-actions-action"
-              direction="column"
-              logo={
-                <Icon
-                  icon="discord"
-                  style={{ width: 28, height: 28 }}
-                  viewBox="-4 -4 36 36"
-                />
-              }
-              label="Discord"
-              labelClass="sideNav-actions-action-label"
-            />
-            <LabeledLogo
-              className="sideNav-actions-action"
-              direction="column"
-              logo={
-                <Icon
-                  icon="restorationForm"
-                  style={{ width: 28, height: 28 }}
-                  viewBox="-4 -4 96 96"
-                />
-              }
-              label="Restoration Form"
-              labelClass="sideNav-actions-action-label"
-            />
-            <LabeledLogo
-              className="sideNav-actions-action"
-              direction="column"
-              logo={
-                <Icon
-                  fill={Colors.black}
-                  icon="creator"
-                  style={{ width: 28, height: 28 }}
-                  viewBox="-4 -4 56 56"
-                />
-              }
-              label="Creator Access"
-              labelClass="sideNav-actions-action-label"
-            />
-            <LabeledLogo
-              className="sideNav-actions-action"
-              direction="column"
-              logo={
-                <Icon
-                  fill={Colors.black}
-                  icon="feedback"
-                  style={{ width: 28, height: 28 }}
-                  viewBox="-4 -4 36 36"
-                />
-              }
-              label="Feedback"
-              labelClass="sideNav-actions-action-label"
-            />
-            <LabeledLogo
-              className="sideNav-actions-action"
-              direction="column"
-              logo={
-                <Icon
-                  fill={Colors.black}
-                  icon="tour"
-                  style={{ width: 28, height: 28 }}
-                  viewBox="-4 -4 280 280"
-                />
-              }
-              label="Tour"
-              labelClass="sideNav-actions-action-label"
-            />
-          </div>
-        }
-        end={
-          <div>
-            <hr style={{ margin: "0.5rem 0" }}></hr>
-            <LabeledLogo
-              className="sideNav-actions-action"
-              direction="column"
-              logo={
-                <Icon
-                  fill={Colors.black}
-                  icon="logout"
-                  style={{ width: 28, height: 28 }}
-                  viewBox="-4 -4 36 36"
-                />
-              }
-              label="Logout"
-              labelClass="sideNav-actions-action-label"
-            />
-          </div>
-        }
-        direction="column"
-      />
+      <SideNav open={leftNavOpen} />
     </main>
   );
 }
