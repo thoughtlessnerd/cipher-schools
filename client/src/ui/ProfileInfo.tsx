@@ -3,8 +3,7 @@ import "../css/ProfileInfo.css";
 import { useEffect } from "react";
 import LabeledElement from "../components/LabeledElement";
 import LabeledLogo from "../components/LabeledLogo";
-import Colors from "../constants/Colors";
-import Icon from "../components/Icon";
+import Dropdown from "../components/Dropdown";
 
 interface ProfileInfoProps {
   user: any;
@@ -15,11 +14,42 @@ const ProfileInfo = (props: ProfileInfoProps) => {
   const [aboutValue, setAboutValue] = React.useState<string>("");
   const [links, setLinks] = React.useState<any>({});
   const [editLinks, setEditLinks] = React.useState<boolean>(false);
+  const [editPersonalInfo, setEditPersonalInfo] =
+    React.useState<boolean>(false);
+  const [openEducationDropdown, setOpenEducationDropdown] =
+    React.useState<boolean>(false);
+  const [educationDropdownValue, setEducationDropdownValue] =
+    React.useState<string>("Graduation");
+  const [educationDropdownSelected, setEducationDropdownSelected] =
+    React.useState<number>(0);
+
+  const [openProfessionDropdown, setOpenProfessionDropdown] =
+    React.useState<boolean>(false);
+  const [professionDropdownValue, setProfessionDropdownValue] =
+    React.useState<string>("Student");
+  const [professionDropdownSelected, setProfessionDropdownSelected] =
+    React.useState<number>(0);
 
   useEffect(() => setAboutValue(props.user.about), [props.user.about]);
   useEffect(() => {
     setLinks(props.user.links || {});
   }, [props.user.links]);
+  useEffect(() => {
+    let data = props.user.education;
+    if (data) {
+      data = data.split(";");
+      setEducationDropdownValue(data[0]);
+      setEducationDropdownSelected(parseInt(data[1]));
+    }
+  }, [props.user.education]);
+  useEffect(() => {
+    let data = props.user.profession;
+    if (data) {
+      data = data.split(";");
+      setProfessionDropdownValue(data[0]);
+      setProfessionDropdownSelected(parseInt(data[1]));
+    }
+  }, [props.user.profession]);
 
   const saveUserData = async (user: any, field: string, value: any) => {
     const res = await fetch(
@@ -130,6 +160,7 @@ const ProfileInfo = (props: ProfileInfoProps) => {
                 label={
                   <input
                     className="profileInfo-section-links-input"
+                    readOnly={!editLinks}
                     placeholder="Github"
                     value={links?.github}
                     onChange={(e) => {
@@ -160,6 +191,7 @@ const ProfileInfo = (props: ProfileInfoProps) => {
                 label={
                   <input
                     className="profileInfo-section-links-input"
+                    readOnly={!editLinks}
                     placeholder="Facebook"
                     value={links?.facebook}
                     onChange={(e) => {
@@ -190,6 +222,7 @@ const ProfileInfo = (props: ProfileInfoProps) => {
                 label={
                   <input
                     className="profileInfo-section-links-input"
+                    readOnly={!editLinks}
                     placeholder="Twitter"
                     value={links?.twitter}
                     onChange={(e) => {
@@ -220,6 +253,7 @@ const ProfileInfo = (props: ProfileInfoProps) => {
                 label={
                   <input
                     className="profileInfo-section-links-input"
+                    readOnly={!editLinks}
                     placeholder="Instagram"
                     value={links?.instagram}
                     onChange={(e) => {
@@ -250,6 +284,7 @@ const ProfileInfo = (props: ProfileInfoProps) => {
                 label={
                   <input
                     className="profileInfo-section-links-input"
+                    readOnly={!editLinks}
                     placeholder="Your Website"
                     value={links?.website}
                     onChange={(e) => {
@@ -268,6 +303,128 @@ const ProfileInfo = (props: ProfileInfoProps) => {
                 }
               />
             </div>
+          </LabeledElement>
+        </div>
+      </section>
+      <span className="profileInfo-section-split"></span>
+
+      <section className="profileInfo-section">
+        <div
+          className="row"
+          style={{
+            justifyContent: "space-between",
+          }}
+        >
+          <h1 className="profileInfo-section-label">Personal Information</h1>
+          <button
+            className="profileInfo-section-edit"
+            onClick={() => {
+              if (editPersonalInfo) {
+                saveUserData(
+                  props.user,
+                  "education",
+                  educationDropdownValue + ";" + educationDropdownSelected
+                );
+                saveUserData(
+                  props.user,
+                  "profession",
+                  professionDropdownValue + ";" + professionDropdownSelected
+                );
+                setEditPersonalInfo(false);
+                setOpenEducationDropdown(false);
+                setOpenProfessionDropdown(false);
+              } else {
+                setEditPersonalInfo(true);
+              }
+            }}
+          >
+            {editPersonalInfo ? "Save" : "Edit"}
+          </button>
+        </div>
+        <div className="profileInfo-section-personalInfo">
+          <LabeledElement
+            className="profileInfo-section-personalInfo-element"
+            label="Highest Education"
+            labelClass="profileInfo-section-personalInfo-label"
+          >
+            <span
+              className="profileInfo-section-personalInfo-button"
+              onClick={() => {
+                if (editPersonalInfo)
+                  setOpenEducationDropdown(!openEducationDropdown);
+                else setOpenEducationDropdown(false);
+              }}
+            >
+              {educationDropdownValue}
+              <span
+                className="profileInfo-section-personalInfo-button-arrow"
+                style={{
+                  transition: "all 0.3s ease",
+                  transform: !openEducationDropdown
+                    ? "rotate(135deg)"
+                    : "rotate(-45deg)",
+                }}
+              />
+            </span>
+            <Dropdown
+              className="profileInfo-section-personalInfo-dropdown"
+              setValue={setEducationDropdownValue}
+              setActive={setEducationDropdownSelected}
+              toggle={setOpenEducationDropdown}
+              elements={[
+                "Primary",
+                "Secondary",
+                "High School",
+                "Graduation",
+                "Post Graduation",
+              ]}
+              elementClass="profileInfo-section-personalInfo-dropdown-element"
+              activeClass="profileInfo-section-personalInfo-dropdown-element-active"
+              selected={educationDropdownSelected}
+              open={openEducationDropdown}
+            />
+          </LabeledElement>
+          <LabeledElement
+            className="profileInfo-section-personalInfo-element"
+            label="What do you do currently?"
+            labelClass="profileInfo-section-personalInfo-label"
+          >
+            <span
+              className="profileInfo-section-personalInfo-button"
+              onClick={() => {
+                if (editPersonalInfo)
+                  setOpenProfessionDropdown(!openProfessionDropdown);
+                else setOpenProfessionDropdown(false);
+              }}
+            >
+              {professionDropdownValue}
+              <span
+                className="profileInfo-section-personalInfo-button-arrow"
+                style={{
+                  transition: "all 0.3s ease",
+                  transform: !openProfessionDropdown
+                    ? "rotate(135deg)"
+                    : "rotate(-45deg)",
+                }}
+              />
+            </span>
+            <Dropdown
+              className="profileInfo-section-personalInfo-dropdown"
+              setValue={setProfessionDropdownValue}
+              setActive={setProfessionDropdownSelected}
+              toggle={setOpenProfessionDropdown}
+              elements={[
+                "Schooling",
+                "College Student",
+                "Teaching",
+                "Job",
+                "Freelancing",
+              ]}
+              elementClass="profileInfo-section-personalInfo-dropdown-element"
+              activeClass="profileInfo-section-personalInfo-dropdown-element-active"
+              selected={professionDropdownSelected}
+              open={openProfessionDropdown}
+            />
           </LabeledElement>
         </div>
       </section>

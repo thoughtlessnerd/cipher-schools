@@ -94,3 +94,72 @@
 .profileInfo-section-links-input:focus {
   outline: none;
 }
+
+.profileInfo-section-personalInfo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.profileInfo-section-personalInfo-element {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.profileInfo-section-personalInfo-label {
+  font-weight: 500;
+}
+
+.profileInfo-section-personalInfo-dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+  width: 100%;
+  background-color: var(--white);
+  top: 100%;
+  border-radius: 1rem;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
+}
+
+.profileInfo-section-personalInfo-dropdown-element,
+.profileInfo-section-personalInfo-button {
+  border: none;
+  background-color: var(--white);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1.2rem;
+  border-radius: 0.8rem;
+}
+
+.profileInfo-section-personalInfo-button-arrow {
+  position: absolute;
+
+  right: 1rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-top: 2px solid var(--gray);
+  border-right: 2px solid var(--gray);
+  transform: rotate(135deg);
+}
+
+.profileInfo-section-personalInfo-button {
+  padding: 0.8rem 1.2rem;
+}
+
+.profileInfo-section-personalInfo-dropdown-element:hover {
+  background-color: var(--primary-hover);
+  cursor: pointer;
+}
+
+.profileInfo-section-personalInfo-dropdown-element-active,
+.profileInfo-section-personalInfo-dropdown-element-active:hover {
+  background-color: var(--primary);
+  cursor: pointer;
+  color: var(--white);
+}
