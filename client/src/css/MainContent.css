@@ -8,4 +8,6 @@
 .mainContent-content-body {
   padding-top: 7rem;
   background-color: var(--secondary);
+  display: flex;
+  flex-direction: row;
 }

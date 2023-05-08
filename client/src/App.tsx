@@ -11,6 +11,7 @@ import Tooltip from "./components/Tooltip";
 import SideNav from "./ui/SideNav";
 import ProfileHeader from "./ui/ProfileHeader";
 import ProfileInfo from "./ui/ProfileInfo";
+import ControlButtons from "./ui/ControlButtons";
 
 function App() {
   const [user, setUser] = useState<any>({
@@ -176,6 +177,7 @@ function App() {
           <ProfileHeader user={user} />
           <div className="mainContent-content-body">
             <ProfileInfo user={user} />
+            <ControlButtons />
           </div>
         </div>
       </div>
