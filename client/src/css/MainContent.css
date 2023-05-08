@@ -7,4 +7,5 @@
 
 .mainContent-content-body {
   padding-top: 7rem;
+  background-color: var(--secondary);
 }

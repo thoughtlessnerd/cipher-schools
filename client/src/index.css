@@ -3,6 +3,9 @@
   --black: #363b43;
   --primary: #f3912e;
   --primary-hover: #fce4cb;
+  --secondary: #f2f5fa;
+  --gray: #808191;
+  --light-gray: #bbbbbb;
 }
 
 * {
@@ -21,7 +24,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.row {
+  display: flex;
+  flex-direction: row;
 }
